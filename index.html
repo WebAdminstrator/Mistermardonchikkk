@@ -101,10 +101,19 @@
     .music-button:hover {
       background: #555;
     }
+      .glow-effect {
+      animation: pulseGlow 2s infinite;
+      box-shadow: 0 0 12px #00ffe0, 0 0 24px #00ffe0;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 12px #00ffe0, 0 0 24px #00ffe0; }
+      50% { box-shadow: 0 0 18px #00ffd5, 0 0 36px #00ffd5; }
+      100% { box-shadow: 0 0 12px #00ffe0, 0 0 24px #00ffe0; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container glow-effect">
     <img class="avatar" src="photo.jpg" alt="Mistermardonchikkk">
     <h1>Mistermardonchikkk</h1>
     <p>Связь со мной через соцсети:</p>
@@ -117,8 +126,18 @@
       <button class="music-button" onclick="document.getElementById('bgmusic').pause()">⏸ Стоп</button>
     </div>
   </div>
-  <audio id="bgmusic" loop autoplay>
+  <audio id="bgmusic" loop autoplay muted>
     <source src="https://eu.hitmo-top.com/song/72823057" type="audio/mpeg">
   </audio>
+<script>
+  // Автоматическое воспроизведение после взаимодействия
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bgmusic');
+    document.body.addEventListener('click', () => {
+      audio.muted = false;
+      audio.play();
+    }, { once: true });
+  });
+</script>
 </body>
 </html>
