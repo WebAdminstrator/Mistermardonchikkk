@@ -131,27 +131,28 @@
     <source src="https://files.catbox.moe/cj9uhp.mp3" type="audio/mpeg">
   </audio>
 <script>
-  // Автоматическое воспроизведение после взаимодействия
+  const audio = document.getElementById('bgmusic');
+
   window.addEventListener('DOMContentLoaded', () => {
-    const audio = document.getElementById('bgmusic');
+    audio.volume = 1;
+
     document.body.addEventListener('click', () => {
       audio.muted = false;
-      audio.play();
+      audio.play().catch(err => console.warn('Play blocked:', err));
     }, { once: true });
-  });
-  audio.volume = 1;
 
-  const slider = document.getElementById('volumeSlider');
-  slider.addEventListener('input', () => {
-    audio.volume = slider.value;
-  });
+    const slider = document.getElementById('volumeSlider');
+    slider.addEventListener('input', () => {
+      audio.volume = slider.value;
+    });
 
-  window.toggleMusic = function(btn) {
-    audio.muted = false;
-    audio.play();
-    btn.querySelector('i').classList.add('fa-shake');
-    setTimeout(() => btn.querySelector('i').classList.remove('fa-shake'), 1000);
-  }
+    window.toggleMusic = function(btn) {
+      audio.muted = false;
+      audio.play().catch(err => console.warn('Play error:', err));
+      btn.querySelector('i').classList.add('fa-shake');
+      setTimeout(() => btn.querySelector('i').classList.remove('fa-shake'), 1000);
+    };
+  });
 </script>
 <canvas id="ripple-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;"></canvas>
 <script>
