@@ -200,8 +200,6 @@ document.addEventListener('touchstart', function(e) {
     });
   }
 });
-});
-  });
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -238,8 +236,8 @@ document.addEventListener('touchstart', function(e) {
 
       // Добавим частицы к всплеску
       if (r.radius < 5) {
-  spawnParticles(r.x, r.y);
-});
+        spawnParticles(r.x, r.y);
+      }
         }
       }
     }
