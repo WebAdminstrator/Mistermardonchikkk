@@ -122,12 +122,13 @@
     <a class="link-button" href="https://www.youtube.com/@SHERIF_GAMING_YT" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
     <a class="link-button" href="tel:+998880007432"><i class="fas fa-phone"></i>Позвонить</a>
     <div class="music-controls">
-      <button class="music-button" onclick="document.getElementById('bgmusic').play()">▶️ Плей</button>
-      <button class="music-button" onclick="document.getElementById('bgmusic').pause()">⏸ Стоп</button>
-    </div>
+  <button class="music-button" onclick="toggleMusic(this)"><i class="fas fa-headphones-alt fa-beat"></i> ▶️ Плей</button>
+  <button class="music-button" onclick="document.getElementById('bgmusic').pause()">⏸ Стоп</button>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 100px;">
+</div>
   </div>
   <audio id="bgmusic" loop autoplay muted>
-    <source src="https://eu.hitmo-top.com/song/72823057" type="audio/mpeg">
+    <source src="https://files.catbox.moe/cj9uhp.mp3" type="audio/mpeg">
   </audio>
 <script>
   // Автоматическое воспроизведение после взаимодействия
@@ -138,6 +139,58 @@
       audio.play();
     }, { once: true });
   });
+  audio.volume = 1;
+
+  const slider = document.getElementById('volumeSlider');
+  slider.addEventListener('input', () => {
+    audio.volume = slider.value;
+  });
+
+  window.toggleMusic = function(btn) {
+    audio.muted = false;
+    audio.play();
+    btn.querySelector('i').classList.add('fa-shake');
+    setTimeout(() => btn.querySelector('i').classList.remove('fa-shake'), 1000);
+  }
+</script>
+<canvas id="ripple-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;"></canvas>
+<script>
+  const canvas = document.getElementById('ripple-canvas');
+  const ctx = canvas.getContext('2d');
+  let ripples = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  document.addEventListener('click', function(e) {
+    ripples.push({
+      x: e.clientX,
+      y: e.clientY,
+      radius: 0,
+      alpha: 1
+    });
+  });
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < ripples.length; i++) {
+      let r = ripples[i];
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = `rgba(0, 255, 255, ${r.alpha})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      r.radius += 2;
+      r.alpha -= 0.02;
+    }
+    ripples = ripples.filter(r => r.alpha > 0);
+    requestAnimationFrame(draw);
+  }
+  draw();
 </script>
 </body>
 </html>
