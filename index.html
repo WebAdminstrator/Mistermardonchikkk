@@ -161,6 +161,19 @@
   let ripples = [];
 let particles = [];
 
+function spawnParticles(x, y) {
+  for (let i = 0; i < 12; i++) {
+    particles.push({
+      x: x,
+      y: y,
+      angle: Math.random() * 2 * Math.PI,
+      speed: Math.random() * 3 + 1.5,
+      radius: Math.random() * 3 + 2,
+      alpha: 1
+    });
+  }
+}
+
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -225,15 +238,8 @@ document.addEventListener('touchstart', function(e) {
 
       // Добавим частицы к всплеску
       if (r.radius < 5) {
-        for (let i = 0; i < 5; i++) {
-          particles.push({
-            x: r.x,
-            y: r.y,
-            angle: Math.random() * 2 * Math.PI,
-            speed: Math.random() * 2.5 + 1.5,
-            radius: Math.random() * 3 + 2,
-            alpha: 1
-          });
+  spawnParticles(r.x, r.y);
+});
         }
       }
     }
