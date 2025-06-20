@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mistermardonchikkk</title>
+  <!-- Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    /* ====== БАЗА ====== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -18,7 +20,7 @@
     body::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       background: rgba(0, 0, 0, 0.4);
       z-index: -1;
     }
@@ -32,7 +34,7 @@
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .avatar {
       width: 160px;
@@ -45,8 +47,8 @@
       animation: float 3s ease-in-out infinite;
     }
     @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
     h1 {
@@ -62,11 +64,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       margin: 15px 0;
       padding: 14px 20px;
       background: #000;
-      color: white;
+      color: #fff;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
@@ -80,6 +82,25 @@
     .link-button i {
       font-size: 18px;
     }
+    .music-controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .music-button {
+      padding: 10px 22px;
+      font-size: 16px;
+      background: #222;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .music-button:hover {
+      background: #555;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +112,13 @@
     <a class="link-button" href="https://t.me/Prens_03" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
     <a class="link-button" href="https://www.youtube.com/@SHERIF_GAMING_YT" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
     <a class="link-button" href="tel:+998880007432"><i class="fas fa-phone"></i>Позвонить</a>
+    <div class="music-controls">
+      <button class="music-button" onclick="document.getElementById('bgmusic').play()">▶️ Плей</button>
+      <button class="music-button" onclick="document.getElementById('bgmusic').pause()">⏸ Стоп</button>
+    </div>
   </div>
+  <audio id="bgmusic" loop autoplay>
+    <source src="https://eu.hitmo-top.com/song/72823057" type="audio/mpeg">
+  </audio>
 </body>
 </html>
